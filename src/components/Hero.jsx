@@ -8,7 +8,7 @@ import { Github, Linkedin, Mail, ArrowRight } from "lucide-react"
 export default function Hero() {
   return (
     <section
-      id="about"
+      id="hero"
       className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20"
     >
       {/* Background Mesh Gradients */}
@@ -24,30 +24,32 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wider mb-6">
-              AI Product Builder | Full Stack Developer
-            </span>
-            <h1 className="text-6xl md:text-8xl font-bold font-heading tracking-tight mb-6">
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium tracking-wide mb-6">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>Available for SWE Internships &bull; 3rd-Year CS Student</span>
+            </div>
+            
+            <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold font-heading tracking-tight mb-6">
               Prakash <span className="text-primary">Ramavath</span>
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-10 max-w-2xl">
-              I build **AI-powered, scalable web applications** that solve real-world problems. 
-              Passionate about combining **full-stack development with AI** to create impactful products.
+            
+            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl">
+              <span className="text-foreground font-semibold">Full-stack developer &amp; AI systems builder</span> creating production-grade web applications. Specializing in hybrid RAG architectures, AST parsing, and high-throughput Python &amp; Next.js platforms.
             </p>
 
-            <div className="flex flex-wrap gap-5 items-center mb-12">
+            <div className="flex flex-wrap gap-4 items-center mb-10">
               <Link
                 href="#projects"
-                className="group px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all shadow-lg shadow-primary/25 flex items-center gap-2"
+                className="group px-7 py-3.5 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all shadow-lg shadow-primary/25 flex items-center gap-2 text-sm"
               >
-                View My Work
+                Explore Projects
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="#contact"
-                className="px-8 py-4 bg-secondary text-secondary-foreground font-semibold rounded-full hover:bg-muted transition-all"
+                className="px-7 py-3.5 bg-secondary text-secondary-foreground font-semibold rounded-full hover:bg-muted transition-all border border-border text-sm"
               >
-                Let&apos;s Talk
+                Contact Me
               </Link>
             </div>
 

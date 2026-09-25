@@ -10,6 +10,7 @@ const navLinks = [
   { name: "About", href: "#about" },
   { name: "Skills", href: "#skills" },
   { name: "Projects", href: "#projects" },
+  { name: "Coding", href: "#coding" },
   { name: "Contact", href: "#contact" },
 ]
 
@@ -45,7 +46,7 @@ export default function Navbar() {
         </motion.div>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-10">
+        <nav className="hidden md:flex items-center gap-8" aria-label="Main Navigation">
           {navLinks.map((link, index) => (
             <motion.div
               key={link.name}
@@ -70,6 +71,7 @@ export default function Navbar() {
           <ThemeToggle />
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle navigation menu"
             className="p-2 hover:bg-muted rounded-lg transition-colors"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

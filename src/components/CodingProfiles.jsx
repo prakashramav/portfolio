@@ -1,0 +1,329 @@
+"use client"
+
+import React, { useState, useEffect } from "react"
+import { motion } from "framer-motion"
+import { Code2, ArrowUpRight, Github, Trophy, Terminal, Flame, CheckCircle, ExternalLink, Cpu } from "lucide-react"
+
+export default function CodingProfiles() {
+  const [leetcodeData, setLeetcodeData] = useState({
+    totalSolved: 143,
+    easySolved: 66,
+    mediumSolved: 68,
+    hardSolved: 9,
+    ranking: "1,220,279",
+    loading: false,
+  })
+
+  useEffect(() => {
+    // Attempt live fetch with graceful fallback
+    fetch("https://alfa-leetcode-api.onrender.com/userProfile/ArjunRathod01")
+      .then((res) => {
+        if (!res.ok) throw new Error("Network error")
+        return res.json()
+      })
+      .then((data) => {
+        if (data && data.totalSolved) {
+          setLeetcodeData({
+            totalSolved: data.totalSolved,
+            easySolved: data.easySolved ?? 66,
+            mediumSolved: data.mediumSolved ?? 68,
+            hardSolved: data.hardSolved ?? 9,
+            ranking: data.ranking ? data.ranking.toLocaleString() : "1,220,279",
+            loading: false,
+          })
+        }
+      })
+      .catch(() => {
+        // Keeps the baseline numbers if rate-limited or offline
+      })
+  }, [])
+
+  return (
+    <section id="coding" className="py-28 bg-muted/15 border-t border-border/50">
+      <div className="max-w-7xl mx-auto px-6">
+        
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wider mb-4 font-mono"
+          >
+            <Trophy size={14} />
+            <span>Problem Solving &amp; Algorithms</span>
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.05 }}
+            className="text-4xl md:text-5xl font-bold font-heading mb-4"
+          >
+            Coding &amp; <span className="text-primary">DSA Profiles</span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto"
+          >
+            Over 150+ problems solved across competitive platforms with a strong focus on trees, dynamic programming, two pointers, and graph algorithms.
+          </motion.p>
+        </div>
+
+        {/* Profiles Grid */}
+        <div className="grid lg:grid-cols-12 gap-8 items-stretch">
+          
+          {/* LeetCode Feature Card (7 cols) */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="lg:col-span-7 p-7 md:p-8 rounded-3xl bg-background border border-border hover:border-primary/40 transition-all flex flex-col justify-between shadow-sm"
+          >
+            <div>
+              {/* Card Header */}
+              <div className="flex items-center justify-between mb-6 pb-4 border-b border-border/60">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-500 flex items-center justify-center font-bold text-xl">
+                    <Code2 size={24} />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-xl font-bold font-heading">LeetCode</h3>
+                      <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">
+                        @ArjunRathod01
+                      </span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Primary Language: <span className="text-foreground font-semibold">Java</span> &bull; 68 Mediums Solved
+                    </p>
+                  </div>
+                </div>
+
+                <a
+                  href="https://leetcode.com/u/ArjunRathod01/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2.5 rounded-xl bg-secondary text-muted-foreground hover:text-primary transition-colors border border-border"
+                  aria-label="View ArjunRathod01 on LeetCode"
+                >
+                  <ArrowUpRight size={18} />
+                </a>
+              </div>
+
+              {/* Total Solved Metric Callout */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6 font-mono">
+                <div className="p-3.5 rounded-2xl bg-muted/40 border border-border/60 text-center">
+                  <span className="text-xs text-muted-foreground block mb-0.5">Total Solved</span>
+                  <span className="text-2xl font-bold text-foreground">{leetcodeData.totalSolved}</span>
+                </div>
+                <div className="p-3.5 rounded-2xl bg-emerald-500/5 border border-emerald-500/20 text-center">
+                  <span className="text-xs text-emerald-400 block mb-0.5">Easy</span>
+                  <span className="text-2xl font-bold text-emerald-400">{leetcodeData.easySolved}</span>
+                </div>
+                <div className="p-3.5 rounded-2xl bg-amber-500/5 border border-amber-500/20 text-center">
+                  <span className="text-xs text-amber-400 block mb-0.5">Medium</span>
+                  <span className="text-2xl font-bold text-amber-400">{leetcodeData.mediumSolved}</span>
+                </div>
+                <div className="p-3.5 rounded-2xl bg-rose-500/5 border border-rose-500/20 text-center">
+                  <span className="text-xs text-rose-400 block mb-0.5">Hard</span>
+                  <span className="text-2xl font-bold text-rose-400">{leetcodeData.hardSolved}</span>
+                </div>
+              </div>
+
+              {/* Solved Distribution Progress Bar */}
+              <div className="mb-6 space-y-2">
+                <div className="flex justify-between text-xs text-muted-foreground font-mono">
+                  <span>Problem Distribution</span>
+                  <span>47% Mediums &bull; High Algorithmic Ratio</span>
+                </div>
+                <div className="h-3 w-full rounded-full bg-muted overflow-hidden flex">
+                  <div
+                    style={{ width: `${(leetcodeData.easySolved / leetcodeData.totalSolved) * 100}%` }}
+                    className="bg-emerald-500 h-full"
+                    title={`Easy: ${leetcodeData.easySolved}`}
+                  ></div>
+                  <div
+                    style={{ width: `${(leetcodeData.mediumSolved / leetcodeData.totalSolved) * 100}%` }}
+                    className="bg-amber-500 h-full"
+                    title={`Medium: ${leetcodeData.mediumSolved}`}
+                  ></div>
+                  <div
+                    style={{ width: `${(leetcodeData.hardSolved / leetcodeData.totalSolved) * 100}%` }}
+                    className="bg-rose-500 h-full"
+                    title={`Hard: ${leetcodeData.hardSolved}`}
+                  ></div>
+                </div>
+              </div>
+
+              {/* Core Strengths Topics */}
+              <div className="space-y-2 text-xs">
+                <span className="font-semibold text-muted-foreground uppercase tracking-wider text-[11px] block">
+                  Core Topic Focus
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {["Binary Trees & BST", "Dynamic Programming", "Two Pointers", "Depth-First Search", "Sliding Window", "Subsets & Backtracking"].map((topic) => (
+                    <span key={topic} className="px-3 py-1 rounded-xl bg-muted/60 border border-border/60 text-muted-foreground text-xs font-medium">
+                      {topic}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Action Link */}
+            <div className="mt-6 pt-5 border-t border-border/60 flex items-center justify-between">
+              <span className="text-xs text-muted-foreground font-mono">
+                Global Rank: #{leetcodeData.ranking}
+              </span>
+              <a
+                href="https://leetcode.com/u/ArjunRathod01/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-bold text-primary hover:underline flex items-center gap-1.5"
+              >
+                <span>Full LeetCode Profile</span>
+                <ArrowUpRight size={14} />
+              </a>
+            </div>
+          </motion.div>
+
+          {/* GitHub & Competitive Profiles (5 cols) */}
+          <div className="lg:col-span-5 flex flex-col gap-6">
+            
+            {/* GitHub Activity Summary Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="p-7 rounded-3xl bg-background border border-border hover:border-primary/40 transition-all flex flex-col justify-between shadow-sm flex-1"
+            >
+              <div>
+                <div className="flex items-center justify-between mb-4 pb-3 border-b border-border/60">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center">
+                      <Github size={20} />
+                    </div>
+                    <div>
+                      <h3 className="font-bold font-heading text-lg">GitHub Activity</h3>
+                      <span className="text-xs text-muted-foreground font-mono">@prakashramav</span>
+                    </div>
+                  </div>
+                  <a
+                    href="https://github.com/prakashramav"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-lg bg-secondary text-muted-foreground hover:text-primary transition-colors border border-border"
+                  >
+                    <ArrowUpRight size={16} />
+                  </a>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3 mb-4 font-mono text-center">
+                  <div className="p-3 rounded-2xl bg-muted/40 border border-border/60">
+                    <span className="text-[11px] text-muted-foreground block">Public Repos</span>
+                    <span className="text-xl font-bold text-foreground">116</span>
+                  </div>
+                  <div className="p-3 rounded-2xl bg-muted/40 border border-border/60">
+                    <span className="text-[11px] text-muted-foreground block">Flagship Systems</span>
+                    <span className="text-xl font-bold text-primary">4</span>
+                  </div>
+                </div>
+
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Consistent open-source builder focusing on full-stack architecture, RAG pipelines, FastAPI services, and developer tooling.
+                </p>
+              </div>
+
+              <div className="mt-5 pt-4 border-t border-border/60 flex items-center justify-between">
+                <span className="text-xs font-mono text-emerald-400 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  Active Builder
+                </span>
+                <a
+                  href="https://github.com/prakashramav"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-bold text-primary hover:underline flex items-center gap-1"
+                >
+                  <span>Explore Repos</span>
+                  <ArrowUpRight size={14} />
+                </a>
+              </div>
+            </motion.div>
+
+            {/* Supporting Competitive Platforms: CodeChef & GeeksforGeeks */}
+            <div className="grid sm:grid-cols-2 gap-4">
+              {/* CodeChef */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.15 }}
+                className="p-5 rounded-3xl bg-background border border-border hover:border-amber-500/40 transition-all shadow-sm flex flex-col justify-between"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="w-10 h-10 rounded-2xl bg-amber-900/10 border border-amber-900/20 text-amber-500 flex items-center justify-center font-bold text-base">
+                    <Trophy size={18} />
+                  </div>
+                  <a
+                    href="https://www.codechef.com/users/ms240410700098"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-lg bg-secondary text-muted-foreground hover:text-amber-400 transition-colors border border-border"
+                    aria-label="View CodeChef Profile"
+                  >
+                    <ArrowUpRight size={14} />
+                  </a>
+                </div>
+                <div>
+                  <h4 className="font-bold font-heading text-sm text-foreground">CodeChef</h4>
+                  <p className="text-xs text-muted-foreground font-mono truncate">
+                    @ms240410700098
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* GeeksforGeeks */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="p-5 rounded-3xl bg-background border border-border hover:border-emerald-500/40 transition-all shadow-sm flex flex-col justify-between"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-base">
+                    <Code2 size={18} />
+                  </div>
+                  <a
+                    href="https://www.geeksforgeeks.org/profile/ramavama78"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-lg bg-secondary text-muted-foreground hover:text-emerald-400 transition-colors border border-border"
+                    aria-label="View GeeksforGeeks Profile"
+                  >
+                    <ArrowUpRight size={14} />
+                  </a>
+                </div>
+                <div>
+                  <h4 className="font-bold font-heading text-sm text-foreground">GeeksforGeeks</h4>
+                  <p className="text-xs text-muted-foreground font-mono truncate">
+                    @ramavama78
+                  </p>
+                </div>
+              </motion.div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  )
+}

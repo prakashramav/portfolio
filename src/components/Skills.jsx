@@ -2,82 +2,139 @@
 
 import React from "react"
 import { motion } from "framer-motion"
-import { Layout, Server, Settings, Brain } from "lucide-react"
+import { Brain, Code, Database, Sparkles, Terminal } from "lucide-react"
 
-const skills = [
+const skillTiers = [
   {
-    category: "AI & LLM",
-    icon: <Brain className="w-6 h-6" />,
-    items: ["Gemini AI", "OpenAI", "LangChain", "Numpy", "Pandas"],
-    color: "bg-rose-500/10 text-rose-500",
+    tier: "Core / Production Stack",
+    tagline: "What I reach for first & build full-stack systems with",
+    icon: <Code className="w-5 h-5" />,
+    badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    items: [
+      "Next.js",
+      "React",
+      "FastAPI",
+      "Python",
+      "PostgreSQL",
+      "Tailwind CSS",
+      "JavaScript (ES6+)",
+      "REST & SSE APIs"
+    ],
   },
   {
-    category: "Frontend",
-    icon: <Layout className="w-6 h-6" />,
-    items: ["React", "Next.js", "Tailwind CSS", "Shadcn UI", "Bootstrap", "HTML5"],
-    color: "bg-blue-500/10 text-blue-500",
+    tier: "AI, RAG & Search Systems",
+    tagline: "Vector retrieval, AST parsing, and multimodal extraction",
+    icon: <Brain className="w-5 h-5" />,
+    badgeColor: "bg-purple-500/10 text-purple-400 border-purple-500/20",
+    items: [
+      "Hybrid RAG (Dense + Sparse)",
+      "pgvector & ChromaDB",
+      "Gemini & Gemini Vision",
+      "Tree-sitter AST",
+      "RRF & Reranking",
+      "LangChain",
+      "scikit-learn"
+    ],
   },
   {
-    category: "Backend",
-    icon: <Server className="w-6 h-6" />,
-    items: ["Node.js", "Express", "Flask", "Prisma", "Python", "Java"],
-    color: "bg-emerald-500/10 text-emerald-500",
+    tier: "Databases & Infrastructure",
+    tagline: "Storage, caching, containerization, and monitoring",
+    icon: <Database className="w-5 h-5" />,
+    badgeColor: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+    items: [
+      "Docker",
+      "Redis (Caching & Rate Limiting)",
+      "SQLAlchemy & Pydantic",
+      "Prometheus & Metrics",
+      "MongoDB",
+      "Git & Linux"
+    ],
   },
   {
-    category: "Database & Tools",
-    icon: <Settings className="w-6 h-6" />,
-    items: ["MongoDB", "PostgreSQL", "Vercel", "Render", "Firebase", "Supabase"],
-    color: "bg-purple-500/10 text-purple-500",
+    tier: "Currently Exploring & Deepening",
+    tagline: "Active engineering research & advanced architectures",
+    icon: <Sparkles className="w-5 h-5" />,
+    badgeColor: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+    items: [
+      "LLM Evaluation (LLM-as-a-Judge)",
+      "Graph RAG (NetworkX)",
+      "Distributed Tracing",
+      "Cross-Encoder Fine-Tuning"
+    ],
   },
 ]
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-32 bg-muted/30">
+    <section id="skills" className="py-32 bg-muted/20">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-20">
+        <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wider mb-4"
+          >
+            <Terminal size={14} />
+            <span>Technical Capabilities</span>
+          </motion.div>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ delay: 0.05 }}
             className="text-4xl md:text-5xl font-bold font-heading mb-4"
           >
-            Technical <span className="text-primary">Skills</span>
+            Engineering <span className="text-primary">Toolbox</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-muted-foreground text-lg max-w-2xl mx-auto"
+            className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto"
           >
-            A comprehensive overview of my tech stack and the tools I use to build intelligent, scalable applications.
+            Organized by real-world usage — from daily production drivers to specialized AI architectures and active areas of study.
           </motion.p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {skills.map((skill, idx) => (
+        <div className="grid md:grid-cols-2 gap-8">
+          {skillTiers.map((tierGroup, idx) => (
             <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
+              key={tierGroup.tier}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              className="p-8 rounded-3xl bg-background border border-border hover:border-primary/50 transition-colors shadow-sm group"
+              className="p-8 rounded-3xl bg-background border border-border hover:border-primary/40 transition-all shadow-sm flex flex-col justify-between"
             >
-              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ${skill.color} group-hover:scale-110 transition-transform`}>
-                {skill.icon}
-              </div>
-              <h3 className="text-2xl font-bold font-heading mb-6">{skill.category}</h3>
-              <div className="flex flex-wrap gap-3">
-                {skill.items.map((item) => (
-                  <span
-                    key={item}
-                    className="px-4 py-2 rounded-xl bg-muted text-sm font-medium hover:bg-primary hover:text-white transition-colors cursor-default"
-                  >
-                    {item}
-                  </span>
-                ))}
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-xl bg-muted text-primary">
+                      {tierGroup.icon}
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold font-heading text-foreground">
+                        {tierGroup.tier}
+                      </h3>
+                      <p className="text-xs text-muted-foreground">
+                        {tierGroup.tagline}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap gap-2.5 pt-4">
+                  {tierGroup.items.map((item) => (
+                    <span
+                      key={item}
+                      className="px-3.5 py-1.5 rounded-xl bg-muted/60 border border-border/60 text-xs sm:text-sm font-medium hover:border-primary/60 hover:text-foreground transition-all cursor-default"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
               </div>
             </motion.div>
           ))}
