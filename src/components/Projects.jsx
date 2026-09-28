@@ -1,8 +1,9 @@
 "use client"
 
 import React, { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Github, ExternalLink, ArrowUpRight, Cpu, Layers, AlertCircle, CheckCircle2, ChevronDown, ChevronUp, Brain, Sparkles, Globe, Filter, Code2, Bot } from "lucide-react"
+import { motion } from "framer-motion"
+import { Github, ExternalLink, ArrowUpRight, Cpu, Layers, AlertCircle, CheckCircle2, Brain, Sparkles, Globe, Bot } from "lucide-react"
+import Card3D from "@/components/Card3D"
 
 const agenticProjects = [
   {
@@ -395,9 +396,10 @@ export default function Projects() {
                   initial={{ opacity: 0, y: 25 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.35, delay: idx * 0.08 }}
-                  className="group flex flex-col bg-background border border-border hover:border-primary/40 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300"
+                  className="h-full"
                 >
-                  {/* System Architecture Visualization Terminal Header */}
+                  <Card3D depth={9} className="group flex flex-col h-full bg-background border border-border hover:border-primary/40 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300">
+                    {/* System Architecture Visualization Terminal Header */}
                   <div className="relative aspect-[16/10] overflow-hidden bg-[#070b12] border-b border-border p-5 flex flex-col justify-between font-mono text-xs">
                     {/* Window top bar */}
                     <div className="flex items-center justify-between border-b border-white/10 pb-3">
@@ -550,7 +552,8 @@ export default function Projects() {
                       </a>
                     </div>
                   </div>
-                </motion.div>
+                </Card3D>
+              </motion.div>
               ))}
             </div>
           </div>
@@ -576,9 +579,10 @@ export default function Projects() {
                   initial={{ opacity: 0, y: 25 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.35, delay: idx * 0.08 }}
-                  className="group flex flex-col bg-background border border-border hover:border-primary/40 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300"
+                  className="h-full"
                 >
-                  {/* System Architecture Visualization Terminal Header */}
+                  <Card3D depth={9} className="group flex flex-col h-full bg-background border border-border hover:border-primary/40 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300">
+                    {/* System Architecture Visualization Terminal Header */}
                   <div className="relative aspect-[16/10] overflow-hidden bg-[#070b12] border-b border-border p-5 flex flex-col justify-between font-mono text-xs">
                     {/* Window top bar */}
                     <div className="flex items-center justify-between border-b border-white/10 pb-3">
@@ -789,11 +793,12 @@ export default function Projects() {
                       </a>
                     </div>
                   </div>
-                </motion.div>
-              ))}
-            </div>
+                </Card3D>
+              </motion.div>
+            ))}
           </div>
-        )}
+        </div>
+      )}
 
         {/* SECTION 2: AI-Integrated and Full-Stack Web Applications */}
         {visibleSecondaryProjects.length > 0 && (
@@ -815,87 +820,89 @@ export default function Projects() {
                   initial={{ opacity: 0, scale: 0.96 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3, delay: idx * 0.05 }}
-                  className="p-7 rounded-3xl bg-background border border-border flex flex-col justify-between hover:border-primary/40 transition-all hover:shadow-xl hover:shadow-primary/5 group"
+                  className="h-full"
                 >
-                  <div>
-                    {/* Header with category tag */}
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-muted text-primary border border-border">
-                        {proj.category}
-                      </span>
-                      <div className="flex items-center gap-2">
-                        <a
-                          href={proj.links.repo}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-2 rounded-lg bg-secondary text-muted-foreground hover:text-foreground transition-colors"
-                          aria-label={`View ${proj.title} on GitHub`}
-                        >
-                          <Github size={15} />
-                        </a>
-                        <a
-                          href={proj.links.demo}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-2 rounded-lg bg-secondary text-muted-foreground hover:text-primary transition-colors"
-                          aria-label={`View ${proj.title} live demo`}
-                        >
-                          <ExternalLink size={15} />
-                        </a>
+                  <Card3D depth={7} className="p-7 rounded-3xl bg-background border border-border flex flex-col justify-between hover:border-primary/40 transition-all hover:shadow-xl hover:shadow-primary/5 group h-full">
+                    <div>
+                      {/* Header with category tag */}
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full bg-muted text-primary border border-border">
+                          {proj.category}
+                        </span>
+                        <div className="flex items-center gap-2">
+                          <a
+                            href={proj.links.repo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-2 rounded-lg bg-secondary text-muted-foreground hover:text-foreground transition-colors"
+                            aria-label={`View ${proj.title} on GitHub`}
+                          >
+                            <Github size={15} />
+                          </a>
+                          <a
+                            href={proj.links.demo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-2 rounded-lg bg-secondary text-muted-foreground hover:text-primary transition-colors"
+                            aria-label={`View ${proj.title} live demo`}
+                          >
+                            <ExternalLink size={15} />
+                          </a>
+                        </div>
+                      </div>
+
+                      <h4 className="text-xl font-bold font-heading mb-1.5 group-hover:text-primary transition-colors">
+                        {proj.title}
+                      </h4>
+                      <p className="text-xs text-primary font-medium mb-4">
+                        {proj.tagline}
+                      </p>
+                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-6">
+                        {proj.description}
+                      </p>
+
+                      {/* Highlights */}
+                      <div className="space-y-2 mb-6">
+                        {proj.highlights.map((h, i) => (
+                          <div key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
+                            <CheckCircle2 size={13} className="text-primary shrink-0 mt-0.5" />
+                            <span className="leading-snug">{h}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Tech Badges */}
+                      <div className="flex flex-wrap gap-1.5 mb-6 font-mono">
+                        {proj.tech.map((t) => (
+                          <span key={t} className="text-[10px] uppercase font-semibold px-2 py-0.5 rounded bg-muted/60 text-muted-foreground border border-border/50">
+                            {t}
+                          </span>
+                        ))}
                       </div>
                     </div>
 
-                    <h4 className="text-xl font-bold font-heading mb-1.5 group-hover:text-primary transition-colors">
-                      {proj.title}
-                    </h4>
-                    <p className="text-xs text-primary font-medium mb-4">
-                      {proj.tagline}
-                    </p>
-                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-6">
-                      {proj.description}
-                    </p>
-
-                    {/* Highlights */}
-                    <div className="space-y-2 mb-6">
-                      {proj.highlights.map((h, i) => (
-                        <div key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
-                          <CheckCircle2 size={13} className="text-primary shrink-0 mt-0.5" />
-                          <span className="leading-snug">{h}</span>
-                        </div>
-                      ))}
+                    {/* Action Link Footer */}
+                    <div className="pt-4 border-t border-border/60 flex items-center justify-between">
+                      <a
+                        href={proj.links.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs font-bold text-primary hover:underline flex items-center gap-1.5"
+                      >
+                        <span>Live Preview</span>
+                        <ArrowUpRight size={14} />
+                      </a>
+                      <a
+                        href={proj.links.repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1"
+                      >
+                        <Github size={13} />
+                        <span>Source Code</span>
+                      </a>
                     </div>
-
-                    {/* Tech Badges */}
-                    <div className="flex flex-wrap gap-1.5 mb-6 font-mono">
-                      {proj.tech.map((t) => (
-                        <span key={t} className="text-[10px] uppercase font-semibold px-2 py-0.5 rounded bg-muted/60 text-muted-foreground border border-border/50">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Action Link Footer */}
-                  <div className="pt-4 border-t border-border/60 flex items-center justify-between">
-                    <a
-                      href={proj.links.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs font-bold text-primary hover:underline flex items-center gap-1.5"
-                    >
-                      <span>Live Preview</span>
-                      <ArrowUpRight size={14} />
-                    </a>
-                    <a
-                      href={proj.links.repo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1"
-                    >
-                      <Github size={13} />
-                      <span>Source Code</span>
-                    </a>
-                  </div>
+                  </Card3D>
                 </motion.div>
               ))}
             </div>

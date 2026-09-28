@@ -4,12 +4,13 @@ import React from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { Github, Linkedin, Mail, ArrowRight } from "lucide-react"
+import ThreeHeroScene from "@/components/ThreeHeroScene"
 
 export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20"
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-24 pb-16"
     >
       {/* Background Mesh Gradients */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
@@ -18,61 +19,78 @@ export default function Hero() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 w-full">
-        <div className="max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium tracking-wide mb-6">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span>Available for SWE Internships &bull; 3rd-Year CS Student</span>
-            </div>
-            
-            <h1 className="text-5xl sm:text-6xl md:text-8xl font-bold font-heading tracking-tight mb-6">
-              Prakash <span className="text-primary">Ramavath</span>
-            </h1>
-            
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl">
-              <span className="text-foreground font-semibold">Full-stack developer &amp; Agentic AI builder</span> creating production-grade systems. Specializing in autonomous multi-agent workflows (LangGraph, MCP), Generative AI architectures, and high-throughput Python &amp; Next.js platforms.
-            </p>
+        <div className="grid lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Left Column: Headline, Bio & CTAs */}
+          <div className="lg:col-span-7">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium tracking-wide mb-6">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Available for SWE Internships &bull; 3rd-Year CS Student</span>
+              </div>
+              
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold font-heading tracking-tight mb-6">
+                Prakash <span className="text-primary">Ramavath</span>
+              </h1>
+              
+              <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl">
+                <span className="text-foreground font-semibold">Full-stack developer &amp; Agentic AI builder</span> creating production-grade systems. Specializing in autonomous multi-agent workflows (LangGraph, MCP), Generative AI architectures, and high-throughput Python &amp; Next.js platforms.
+              </p>
 
-            <div className="flex flex-wrap gap-4 items-center mb-10">
-              <Link
-                href="#projects"
-                className="group px-7 py-3.5 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all shadow-lg shadow-primary/25 flex items-center gap-2 text-sm"
-              >
-                Explore Projects
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                href="#contact"
-                className="px-7 py-3.5 bg-secondary text-secondary-foreground font-semibold rounded-full hover:bg-muted transition-all border border-border text-sm"
-              >
-                Contact Me
-              </Link>
-            </div>
-
-            <div className="flex gap-6">
-              {[
-                { icon: Github, href: "https://github.com/prakashramav", label: "GitHub" },
-                { icon: Linkedin, href: "https://www.linkedin.com/in/prakashramavath/", label: "LinkedIn" },
-                { icon: Mail, href: "mailto:ramavathprakash83@gmail.com", label: "Email" },
-              ].map((social, idx) => (
-                <motion.a
-                  key={idx}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ y: -3 }}
-                  className="p-3 bg-secondary rounded-xl text-muted-foreground hover:text-primary transition-colors border border-border"
-                  aria-label={social.label}
+              <div className="flex flex-wrap gap-4 items-center mb-10">
+                <Link
+                  href="#projects"
+                  className="group px-7 py-3.5 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all shadow-lg shadow-primary/25 flex items-center gap-2 text-sm"
                 >
-                  <social.icon size={22} />
-                </motion.a>
-              ))}
-            </div>
-          </motion.div>
+                  Explore Projects
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link
+                  href="#contact"
+                  className="px-7 py-3.5 bg-secondary text-secondary-foreground font-semibold rounded-full hover:bg-muted transition-all border border-border text-sm"
+                >
+                  Contact Me
+                </Link>
+              </div>
+
+              <div className="flex gap-4 items-center">
+                {[
+                  { icon: Github, href: "https://github.com/prakashramav", label: "GitHub" },
+                  { icon: Linkedin, href: "https://www.linkedin.com/in/prakashramavath/", label: "LinkedIn" },
+                  { icon: Mail, href: "mailto:ramavathprakash83@gmail.com", label: "Email" },
+                ].map((social, idx) => (
+                  <motion.a
+                    key={idx}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ y: -3 }}
+                    className="p-3 bg-secondary rounded-xl text-muted-foreground hover:text-primary transition-colors border border-border"
+                    aria-label={social.label}
+                  >
+                    <social.icon size={20} />
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right Column: 3D Interactive WebGL Neural Nexus */}
+          <div className="lg:col-span-5 flex justify-center items-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="w-full flex justify-center"
+            >
+              <ThreeHeroScene />
+            </motion.div>
+          </div>
+
         </div>
       </div>
     </section>
