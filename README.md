@@ -14,8 +14,12 @@
 ## 🌟 Key Portfolio Highlights
 
 ### 1. Flagship Engineering Systems (Interactive Filter Tabs)
-Includes an interactive category switcher filtering between **All Projects (9)**, **GenAI & Systems (4)**, **AI-Integrated Apps (3)**, and **Full-Stack Web (2)**:
+Includes an interactive category switcher filtering between **All Projects (13)**, **Agentic AI / AI Agents (4)**, **GenAI & Systems (4)**, **AI-Integrated Apps (3)**, and **Full-Stack Web (2)**:
 
+- **ResolveAI:** Multi-agent support system that resolves tickets end to end under strict guardrails (prompt-injection defense, IDOR protection, financial caps, PII redaction, human-in-the-loop escalation) with 49 automated tests and a 20-scenario evaluation benchmark.
+- **AutoDev-Agent:** Autonomous AI software engineer that plans, codes, and executes tests in an isolated Docker sandbox, self-heals failing tests (up to 3 retries), scans diffs for secrets, and opens PRs automatically.
+- **EnterpriseOps Agent:** Autonomous operations agent turning natural-language directives into governed workflows across Drive, Gmail, Slack, and Calendar via MCP, featuring RBAC, human approval gates, emergency circuit breaker, and SHA-256 audit log.
+- **DeepResearch Agent:** 8-stage multi-agent research pipeline with topic decomposition, parallel web search via Tavily, claim cross-checking, conflict detection, and cited reports with PDF/Markdown export.
 - **Enterprise RAG Assistant:** Production-grade multi-tenant RAG SaaS with PostgreSQL sparse search + pgvector dense search fused via Reciprocal Rank Fusion ($k=60$), cross-encoder reranking, RBAC, Redis rate limiting, and 24 passing automated tests.
 - **AI Engineering Assistant:** Codebase intelligence engine utilizing Tree-sitter AST semantic parsing, ChromaDB vector retrieval, NetworkX call-graph traversal, and interactive React Flow architecture visualization with real-time SSE progress.
 - **DocIntel:** Multimodal document extraction platform using Gemini Vision with normalized spatial bounding boxes, per-field confidence scoring, strict Pydantic schemas, and a human-in-the-loop review queue.
@@ -23,11 +27,11 @@ Includes an interactive category switcher filtering between **All Projects (9)**
 - **Additional Applications:** ResumeAI (ATS optimization), Interview-AI (Real-time mock interviews), AI Growise (FinTech tracking), Recruitment Portal (3-tier RBAC), and E-Commerce Platform.
 
 ### 2. Engineering Toolbox (Proficiency Tiers)
-Organized into 4 distinct practical tiers rather than a uniform badge wall:
-1. **Core / Production Stack:** Next.js, React, FastAPI, Python, PostgreSQL, Tailwind CSS, JavaScript (ES6+), REST & SSE APIs.
-2. **AI, RAG & Search Systems:** Hybrid RAG, pgvector & ChromaDB, Gemini & Gemini Vision, Tree-sitter AST, RRF & Reranking, LangChain, scikit-learn.
-3. **Databases & Infrastructure:** Docker, Redis (Caching & Rate Limiting), SQLAlchemy & Pydantic, Prometheus, MongoDB, Git & Linux.
-4. **Currently Exploring & Deepening:** LLM Evaluation (LLM-as-a-Judge), Graph RAG (NetworkX), Distributed Tracing, Cross-Encoder Fine-Tuning.
+Organized into 4 distinct practical tiers:
+1. **Agentic AI & AI Agents:** LangGraph (Stateful Multi-Agent Graphs), Model Context Protocol (MCP), Self-Healing Code Loops, Human-in-the-Loop Approval Gates, Prompt-Injection & IDOR Defense, Financial Caps & PII Redaction, Docker Execution Sandboxes, SHA-256 Chained Audit Logs.
+2. **Generative AI & LLM Systems (Gen-AI):** Hybrid RAG (Dense + Sparse Search), pgvector & ChromaDB, Google Gemini & Gemini Vision, Tree-sitter AST Parsing, Reciprocal Rank Fusion (RRF) & Reranking, Parallel Research Pipelines, LLM-as-a-Judge Evaluation, Citation Auditing.
+3. **Core / Production Full-Stack:** Next.js (App Router), React 19, FastAPI (Async Python), Python, Tailwind CSS v4, JavaScript (ES6+), RESTful & SSE APIs, State Management.
+4. **Databases, Cloud & Infrastructure:** Docker Container Sandboxes, PostgreSQL, Redis (Caching & Rate Limiting), SQLAlchemy & Prisma ORM, RBAC, Prometheus Metrics, MongoDB, Git & Linux, GitHub APIs.
 
 ### 3. Live Coding & Competitive Programming Section
 - **LeetCode:** Live statistics and distribution for [@ArjunRathod01](https://leetcode.com/u/ArjunRathod01/) (143+ solved with 47% medium ratio, Java primary).

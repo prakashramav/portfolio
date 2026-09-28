@@ -2,64 +2,79 @@
 
 import React from "react"
 import { motion } from "framer-motion"
-import { Brain, Code, Database, Sparkles, Terminal } from "lucide-react"
+import { Brain, Code, Database, Terminal, Bot } from "lucide-react"
 
 const skillTiers = [
   {
-    tier: "Core / Production Stack",
-    tagline: "What I reach for first & build full-stack systems with",
-    icon: <Code className="w-5 h-5" />,
-    badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    tier: "Agentic AI & AI Agents",
+    tagline: "Autonomous multi-agent workflows, tool execution & governance",
+    icon: <Bot className="w-5 h-5" />,
+    badgeColor: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20",
     items: [
-      "Next.js",
-      "React",
-      "FastAPI",
-      "Python",
-      "PostgreSQL",
-      "Tailwind CSS",
-      "JavaScript (ES6+)",
-      "REST & SSE APIs"
+      "LangGraph (Stateful Multi-Agent Graphs)",
+      "Model Context Protocol (MCP)",
+      "Autonomous Self-Healing Loops",
+      "Human-in-the-Loop Approval Gates",
+      "Prompt-Injection & IDOR Guardrails",
+      "PII Redaction & Financial Caps",
+      "Docker Execution Sandboxes",
+      "Multi-Agent Evaluation Benchmarks",
+      "Emergency Circuit Breakers",
+      "Chained SHA-256 Audit Trails"
     ],
   },
   {
-    tier: "AI, RAG & Search Systems",
-    tagline: "Vector retrieval, AST parsing, and multimodal extraction",
+    tier: "Generative AI & LLM Systems (Gen-AI)",
+    tagline: "Hybrid RAG, multimodal vision, and semantic retrieval",
     icon: <Brain className="w-5 h-5" />,
     badgeColor: "bg-purple-500/10 text-purple-400 border-purple-500/20",
     items: [
-      "Hybrid RAG (Dense + Sparse)",
+      "Hybrid RAG (Dense + Sparse Search)",
       "pgvector & ChromaDB",
-      "Gemini & Gemini Vision",
-      "Tree-sitter AST",
-      "RRF & Reranking",
-      "LangChain",
-      "scikit-learn"
+      "Google Gemini & Gemini Vision",
+      "Tree-sitter AST Code Chunking",
+      "Reciprocal Rank Fusion (RRF)",
+      "Cross-Encoder Reranking",
+      "Parallel Query Decomposition",
+      "LLM-as-a-Judge Evaluation",
+      "Pydantic Schema Validation",
+      "Citation Auditing & Verification"
     ],
   },
   {
-    tier: "Databases & Infrastructure",
-    tagline: "Storage, caching, containerization, and monitoring",
+    tier: "Core / Production Full-Stack",
+    tagline: "What I reach for first & build full-stack platforms with",
+    icon: <Code className="w-5 h-5" />,
+    badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+    items: [
+      "Next.js (App Router)",
+      "React 19",
+      "FastAPI (Async Python)",
+      "Python",
+      "Tailwind CSS v4",
+      "JavaScript (ES6+)",
+      "RESTful APIs",
+      "Server-Sent Events (SSE)",
+      "State Management",
+      "Responsive UI Design"
+    ],
+  },
+  {
+    tier: "Databases, Cloud & Infrastructure",
+    tagline: "Storage, isolated containerization, caching & observability",
     icon: <Database className="w-5 h-5" />,
     badgeColor: "bg-blue-500/10 text-blue-400 border-blue-500/20",
     items: [
-      "Docker",
+      "Docker Container Sandboxes",
+      "PostgreSQL",
       "Redis (Caching & Rate Limiting)",
-      "SQLAlchemy & Pydantic",
-      "Prometheus & Metrics",
+      "SQLAlchemy & Prisma ORM",
+      "Role-Based Access Control (RBAC)",
+      "Prometheus Metrics",
       "MongoDB",
-      "Git & Linux"
-    ],
-  },
-  {
-    tier: "Currently Exploring & Deepening",
-    tagline: "Active engineering research & advanced architectures",
-    icon: <Sparkles className="w-5 h-5" />,
-    badgeColor: "bg-amber-500/10 text-amber-400 border-amber-500/20",
-    items: [
-      "LLM Evaluation (LLM-as-a-Judge)",
-      "Graph RAG (NetworkX)",
-      "Distributed Tracing",
-      "Cross-Encoder Fine-Tuning"
+      "Git & Linux",
+      "GitHub REST & GraphQL API",
+      "Turbopack & Vercel CI/CD"
     ],
   },
 ]

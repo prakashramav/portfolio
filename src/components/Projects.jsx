@@ -2,7 +2,140 @@
 
 import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Github, ExternalLink, ArrowUpRight, Cpu, Layers, AlertCircle, CheckCircle2, ChevronDown, ChevronUp, Brain, Sparkles, Globe, Filter, Code2 } from "lucide-react"
+import { Github, ExternalLink, ArrowUpRight, Cpu, Layers, AlertCircle, CheckCircle2, ChevronDown, ChevronUp, Brain, Sparkles, Globe, Filter, Code2, Bot } from "lucide-react"
+
+const agenticProjects = [
+  {
+    id: "resolve-ai",
+    title: "ResolveAI: Autonomous Customer Support & Resolution Engine",
+    category: "Agentic AI / AI Agents",
+    type: "agentic",
+    tagline: "Multi-agent support system that resolves tickets end to end under strict guardrails",
+    description: "Multi-agent support system that resolves tickets end to end (refunds, replacements, order checks) under strict guardrails: prompt-injection defense, IDOR protection, financial caps, PII redaction, and human-in-the-loop escalation. 49 automated tests and a 20-scenario evaluation benchmark.",
+    tags: ["LangGraph", "FastAPI", "Next.js", "Multi-Agent", "Guardrails", "Docker"],
+    tech: ["LangGraph", "FastAPI", "Next.js", "Multi-Agent", "Guardrails", "Docker"],
+    image: "/projects/resolve-ai.png",
+    problem: "Customer support workflows need automated execution (refunds, replacements, order checks), but raw LLMs risk prompt injection, unauthorized account access (IDOR), and unconstrained financial actions.",
+    solution: "LangGraph-powered stateful multi-agent system orchestrating ticket triage, verification, and resolution with deterministic guardrails (PII redaction, financial limits) and human approval checkpoints.",
+    architecture: "Multi-agent state graph with deterministic guardrails (prompt injection defense, IDOR protection, PII redaction, financial spending limits) and automated human-in-the-loop escalation.",
+    terminalFile: "resolve_support_graph.py",
+    terminalLines: [
+      { num: "01", text: "graph = StateGraph(SupportTicketState).compile()", color: "text-emerald-400 font-semibold" },
+      { num: "02", text: "guardrails.verify(prompt_injection=False, idor=False)", color: "text-rose-400" },
+      { num: "03", text: "action = router.dispatch(cap=100, pii_redact=True)", color: "text-indigo-300" },
+      { num: "04", text: "eval_benchmark: 20/20 passed • 49 tests green", color: "text-amber-300/90" }
+    ],
+    highlights: [
+      "Multi-agent resolution pipeline executing end-to-end refunds, replacements, and order status inquiries",
+      "Multi-layered defense: prompt-injection prevention, IDOR protection, and automated PII redaction",
+      "Enforced financial caps and safety thresholds with automated human-in-the-loop escalation gates",
+      "49 automated test suites and a comprehensive 20-scenario evaluation benchmark"
+    ],
+    learnings: [
+      "Balancing deterministic safety guardrails with non-deterministic agent workflows without introducing latency penalties",
+      "Structuring LangGraph human-in-the-loop interrupt states to preserve session consistency during manual escalation"
+    ],
+    links: { demo: "https://resolution-agent-u9bo.vercel.app/", repo: "https://github.com/prakashramav/resolution_agent" }
+  },
+  {
+    id: "auto-dev-agent",
+    title: "AutoDev-Agent: Autonomous AI Software Engineer",
+    category: "Agentic AI / AI Agents",
+    type: "agentic",
+    tagline: "Autonomous coding agent with Docker execution sandboxing, test-driven self-healing, and PR creation",
+    description: "Takes a GitHub repo and an issue, then plans, codes, tests in an isolated Docker sandbox, self-heals failing tests (up to 3 retries), reviews the diff for leaked secrets, and opens a Pull Request automatically.",
+    tags: ["LangGraph", "Gemini", "Docker Sandbox", "FastAPI", "Next.js", "GitHub API"],
+    tech: ["LangGraph", "Gemini", "Docker Sandbox", "FastAPI", "Next.js", "GitHub API"],
+    image: "/projects/auto-dev-agent.png",
+    problem: "Autonomous code generation without isolated execution environments risks destructive file mutations, infinite failure loops on broken tests, and committing leaked API keys or credentials directly into repositories.",
+    solution: "LangGraph orchestration agent that analyzes issues, plans file changes, runs tests inside isolated Docker sandboxes, iterates through an automated self-healing loop, and reviews diffs before PR creation.",
+    architecture: "LangGraph agent executing repository analysis, sandbox isolation in Docker, automated test execution, self-healing code iteration (up to 3 retries), secret auditing, and GitHub PR creation.",
+    terminalFile: "autodev_sandbox_worker.py",
+    terminalLines: [
+      { num: "01", text: "sandbox = docker.create_isolated_sandbox(repo_id)", color: "text-cyan-400 font-semibold" },
+      { num: "02", text: "agent.plan_and_patch(github_issue_context)", color: "text-slate-400" },
+      { num: "03", text: "pytest.run() -> self_heal(max_retries=3) -> PASS", color: "text-emerald-400" },
+      { num: "04", text: "secret_scan.clean() -> github.create_pull_request()", color: "text-indigo-300" }
+    ],
+    highlights: [
+      "Autonomous issue-to-PR cycle: repository cloning, patch planning, and automated PR generation",
+      "Isolated Docker container sandbox for safe code compilation, dependency resolution, and test execution",
+      "Self-healing test runner with automated error diagnosis and up to 3 repair retry cycles",
+      "Pre-commit security scanning auditing code diffs for leaked secrets and exposed API credentials"
+    ],
+    learnings: [
+      "Constraining agent self-healing loops to prevent circular test regressions and runaway token consumption",
+      "Isolating execution environments in Docker to prevent malicious or malformed code from affecting host systems"
+    ],
+    links: { demo: "https://auto-dev-agent.vercel.app/", repo: "https://github.com/prakashramav/AutoDev-Agent" }
+  },
+  {
+    id: "enterprise-ops-agent",
+    title: "EnterpriseOps Agent: Autonomous Operations Agent",
+    category: "Agentic AI / AI Agents",
+    type: "agentic",
+    tagline: "Governed autonomous operations engine coordinating enterprise tools via Model Context Protocol (MCP)",
+    description: "Turns one natural-language directive into a governed multi-step workflow across Drive, Gmail, Slack, Calendar and task tools via MCP. Includes RBAC, human approval gates, an emergency circuit breaker, a SHA-256 chained audit log, RAG over company docs, and an analytics dashboard.",
+    tags: ["LangGraph", "MCP", "RAG", "pgvector", "RBAC", "FastAPI", "Next.js"],
+    tech: ["LangGraph", "MCP", "RAG", "pgvector", "RBAC", "FastAPI", "Next.js"],
+    image: "/projects/enterprise-ops-agent.png",
+    problem: "Cross-platform enterprise task automation lacks centralized governance, verifiable auditability, role-based permission boundaries, and safety circuit breakers when executing high-impact write operations.",
+    solution: "Model Context Protocol (MCP) tool integration layer governed by a LangGraph controller with pgvector semantic retrieval, RBAC authorization, SHA-256 hash-chained audit logging, and human approval gates.",
+    architecture: "MCP tool server layer connecting Drive, Gmail, Slack, and Calendar, governed by a LangGraph controller, RBAC validation, SHA-256 chained audit logging, emergency circuit breaker, and company doc RAG.",
+    terminalFile: "enterprise_mcp_governance.py",
+    terminalLines: [
+      { num: "01", text: "directive.parse() -> mcp.dispatch([Drive, Slack, Cal])", color: "text-amber-400 font-semibold" },
+      { num: "02", text: "rbac.enforce(role=\"ops_admin\", circuit_breaker=ACTIVE)", color: "text-emerald-400" },
+      { num: "03", text: "audit.append_sha256_chain(prev_hash, action_payload)", color: "text-indigo-300" },
+      { num: "04", text: "pgvector_rag.query(company_docs) -> approval_gate()", color: "text-cyan-300" }
+    ],
+    highlights: [
+      "Multi-step tool orchestration across Google Drive, Gmail, Slack, Calendar, and task management via MCP",
+      "Enterprise governance: Role-Based Access Control (RBAC) and human-in-the-loop approval gates for destructive actions",
+      "SHA-256 hash-chained immutable audit log providing tamper-evident tracking for every automated step",
+      "Emergency circuit breaker mechanism to instantly halt agent execution across all integrated services",
+      "Grounded pgvector RAG pipeline over internal company documentation with operational analytics dashboard"
+    ],
+    learnings: [
+      "Standardizing disparate enterprise tool APIs into unified Model Context Protocol (MCP) server endpoints",
+      "Implementing cryptographic hash-chaining to ensure tamper-proof audit trails for autonomous actions"
+    ],
+    links: { demo: "https://autonomous-operations-agent-ys6l.vercel.app/", repo: "https://github.com/prakashramav/Autonomous_Operations_Agent" }
+  },
+  {
+    id: "deep-research-agent",
+    title: "DeepResearch Agent",
+    category: "Agentic AI / AI Agents",
+    type: "agentic",
+    tagline: "8-stage multi-agent research pipeline with parallel search, claim cross-checking, and cited export",
+    description: "8-stage multi-agent research pipeline: plans sub-questions, searches the web in parallel, extracts and cross-checks claims, detects conflicting data, and produces a cited report with PDF/Markdown export. Every citation is audited against real sources.",
+    tags: ["LangGraph", "Gemini", "Tavily", "PostgreSQL", "FastAPI", "Next.js"],
+    tech: ["LangGraph", "Gemini", "Tavily", "PostgreSQL", "FastAPI", "Next.js"],
+    image: "/projects/deep-research-agent.png",
+    problem: "Single-turn LLM research generates superficial, generic summaries that miss conflicting perspectives, hallucinate source citations, and fail to cross-verify claims against real independent web sources.",
+    solution: "8-stage multi-agent pipeline orchestrated with LangGraph: sub-question decomposition, parallel web search via Tavily, claim extraction, conflict detection, source auditing, and structured report synthesis.",
+    architecture: "8-stage multi-agent pipeline orchestrated with LangGraph: topic decomposition, parallel Tavily web search, claim extraction, conflict and contradiction mapping, citation auditing against real sources, and PDF/Markdown export.",
+    terminalFile: "deep_research_pipeline.py",
+    terminalLines: [
+      { num: "01", text: "stages = [Decompose, ParallelSearch, CrossCheck, Synthesis]", color: "text-purple-400 font-semibold" },
+      { num: "02", text: "tavily_pool.parallel_search(sub_questions, depth=3)", color: "text-cyan-300" },
+      { num: "03", text: "contradiction_detector.cross_check(extracted_claims)", color: "text-amber-300" },
+      { num: "04", text: "audit_citations(100% grounded) -> export_pdf_markdown()", color: "text-emerald-400" }
+    ],
+    highlights: [
+      "8-stage multi-agent pipeline orchestrating topic decomposition, evidence gathering, and synthesis",
+      "Parallel web search execution querying multiple angles simultaneously with Tavily API",
+      "Automated claim extraction and cross-checking to detect conflicting data across independent sources",
+      "Full source auditing verifying that every cited statement directly maps to retrieved source material",
+      "Editorial report generation with comprehensive references and one-click PDF and Markdown export"
+    ],
+    learnings: [
+      "Coordinating concurrent sub-agent web retrieval while managing rate limits and deduplicating source corpora",
+      "Designing algorithmic conflict detection between opposing empirical claims across disparate web sources"
+    ],
+    links: { demo: "https://deepsearch-agent-ng7h.vercel.app/", repo: "https://github.com/prakashramav/deepsearch_agent" }
+  }
+]
 
 const flagshipProjects = [
   {
@@ -158,12 +291,14 @@ export default function Projects() {
 
   // Filter definitions
   const filterTabs = [
-    { id: "all", label: "All Projects", count: 9, icon: <Layers size={14} /> },
+    { id: "all", label: "All Projects", count: 13, icon: <Layers size={14} /> },
+    { id: "agentic", label: "Agentic AI / AI Agents", count: 4, icon: <Bot size={14} /> },
     { id: "genai", label: "GenAI & Systems", count: 4, icon: <Brain size={14} /> },
     { id: "ai-integrated", label: "AI-Integrated Apps", count: 3, icon: <Sparkles size={14} /> },
     { id: "fullstack", label: "Full-Stack Web", count: 2, icon: <Globe size={14} /> },
   ]
 
+  const showAgentic = activeFilter === "all" || activeFilter === "agentic"
   const showFlagship = activeFilter === "all" || activeFilter === "genai"
   const visibleSecondaryProjects = activeFilter === "all"
     ? webAndAiProjects
@@ -240,13 +375,194 @@ export default function Projects() {
           })}
         </div>
 
+        {/* SECTION 0: Agentic AI / AI Agents (Rendered when 'all' or 'agentic' selected) */}
+        {showAgentic && (
+          <div className="mb-20">
+            {activeFilter === "all" && (
+              <div className="flex items-center gap-3 mb-8">
+                <span className="text-xs font-mono font-semibold uppercase tracking-wider text-primary px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
+                  Tier 1 &bull; Agentic AI &amp; Autonomous Systems
+                </span>
+                <div className="h-[1px] flex-1 bg-border/60"></div>
+              </div>
+            )}
+
+            <div className="grid md:grid-cols-2 gap-10">
+              {agenticProjects.map((project, idx) => (
+                <motion.div
+                  key={project.id}
+                  layout
+                  initial={{ opacity: 0, y: 25 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35, delay: idx * 0.08 }}
+                  className="group flex flex-col bg-background border border-border hover:border-primary/40 rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300"
+                >
+                  {/* System Architecture Visualization Terminal Header */}
+                  <div className="relative aspect-[16/10] overflow-hidden bg-[#070b12] border-b border-border p-5 flex flex-col justify-between font-mono text-xs">
+                    {/* Window top bar */}
+                    <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+                        <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+                        <span className="ml-2 text-[11px] text-muted-foreground/80">
+                          {project.terminalFile}
+                        </span>
+                      </div>
+                      <span className="text-[10px] font-semibold tracking-wide px-2.5 py-0.5 rounded-full bg-primary/10 border border-primary/30 text-primary">
+                        {project.category}
+                      </span>
+                    </div>
+
+                    {/* Code/Architecture lines */}
+                    <div className="my-auto py-2 space-y-2">
+                      <div className="space-y-1.5 text-[11px] text-slate-300">
+                        {project.terminalLines.map((line, lIdx) => (
+                          <div key={lIdx} className={`${line.color} flex items-center gap-1.5`}>
+                            <span className="text-slate-500">{line.num}</span>
+                            <span>{line.text}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Window bottom status bar */}
+                    <div className="flex items-center justify-between pt-2.5 border-t border-white/10 text-[10px] text-muted-foreground">
+                      <div className="flex items-center gap-1.5 text-emerald-400 font-medium">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>System Live &amp; Verified</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <a
+                          href={project.links.repo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-primary transition-colors flex items-center gap-1"
+                        >
+                          <Github size={12} /> Code
+                        </a>
+                        <a
+                          href={project.links.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-primary transition-colors flex items-center gap-1 font-bold text-primary"
+                        >
+                          <ExternalLink size={12} /> Live Demo
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Card Content Details */}
+                  <div className="p-7 md:p-8 flex flex-col flex-grow">
+                    <div className="flex flex-wrap gap-1.5 mb-4 font-mono">
+                      {project.tech.map((t) => (
+                        <span
+                          key={t}
+                          className="text-[10px] uppercase font-semibold px-2 py-0.5 rounded bg-muted text-muted-foreground border border-border/50"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+
+                    <h3 className="text-xl md:text-2xl font-bold font-heading mb-2 group-hover:text-primary transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-xs text-primary font-medium mb-6">
+                      {project.tagline}
+                    </p>
+
+                    {/* Problem vs Architecture breakdown */}
+                    <div className="space-y-3.5 mb-6 text-xs md:text-sm">
+                      <div className="p-3.5 rounded-xl bg-muted/40 border border-border/60">
+                        <div className="flex items-center gap-1.5 font-semibold text-rose-400 mb-1 text-xs">
+                          <AlertCircle size={14} />
+                          <span>The Engineering Problem</span>
+                        </div>
+                        <p className="text-muted-foreground leading-relaxed">
+                          {project.problem}
+                        </p>
+                      </div>
+
+                      <div className="p-3.5 rounded-xl bg-muted/40 border border-border/60">
+                        <div className="flex items-center gap-1.5 font-semibold text-emerald-400 mb-1 text-xs">
+                          <Layers size={14} />
+                          <span>Architecture &amp; Solution</span>
+                        </div>
+                        <p className="text-muted-foreground leading-relaxed">
+                          {project.architecture}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Key Highlights */}
+                    <div className="mb-6">
+                      <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground block mb-2.5">
+                        Key Highlights
+                      </span>
+                      <ul className="space-y-2">
+                        {project.highlights.map((h, i) => (
+                          <li key={i} className="flex items-start gap-2 text-xs md:text-sm text-muted-foreground">
+                            <CheckCircle2 size={15} className="text-primary shrink-0 mt-0.5" />
+                            <span className="leading-snug">{h}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* What I Learned */}
+                    {project.learnings && project.learnings.length > 0 && (
+                      <div className="mb-6">
+                        <span className="text-xs font-semibold uppercase tracking-wider text-indigo-400 block mb-2.5">
+                          What I Learned
+                        </span>
+                        <ul className="space-y-2">
+                          {project.learnings.map((l, i) => (
+                            <li key={i} className="flex items-start gap-2 text-xs md:text-sm text-muted-foreground">
+                              <Brain size={14} className="text-indigo-400 shrink-0 mt-0.5" />
+                              <span className="leading-snug">{l}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Action Links */}
+                    <div className="mt-auto pt-6 border-t border-border flex items-center justify-between">
+                      <a
+                        href={project.links.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 text-sm font-bold text-primary hover:underline group/link"
+                      >
+                        Live Preview
+                        <ArrowUpRight size={16} className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                      </a>
+                      <a
+                        href={project.links.repo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground font-medium transition-colors"
+                      >
+                        <Github size={15} />
+                        <span>Source Code</span>
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* SECTION 1: Flagship GenAI Systems (Rendered when 'all' or 'genai' selected) */}
         {showFlagship && (
           <div className="mb-20">
             {activeFilter === "all" && (
               <div className="flex items-center gap-3 mb-8">
                 <span className="text-xs font-mono font-semibold uppercase tracking-wider text-primary px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
-                  Tier 1 &bull; Flagship GenAI Architectures
+                  Tier 2 &bull; Flagship GenAI Architectures
                 </span>
                 <div className="h-[1px] flex-1 bg-border/60"></div>
               </div>
@@ -485,7 +801,7 @@ export default function Projects() {
             {activeFilter === "all" && (
               <div className="flex items-center gap-3 mb-8">
                 <span className="text-xs font-mono font-semibold uppercase tracking-wider text-muted-foreground px-3 py-1 rounded-full bg-muted/60 border border-border">
-                  Tier 2 &bull; AI-Integrated &amp; Full-Stack Applications
+                  Tier 3 &bull; AI-Integrated &amp; Full-Stack Applications
                 </span>
                 <div className="h-[1px] flex-1 bg-border/60"></div>
               </div>

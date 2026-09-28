@@ -34,7 +34,7 @@ export default function Hero() {
             </h1>
             
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl">
-              <span className="text-foreground font-semibold">Full-stack developer &amp; AI systems builder</span> creating production-grade web applications. Specializing in hybrid RAG architectures, AST parsing, and high-throughput Python &amp; Next.js platforms.
+              <span className="text-foreground font-semibold">Full-stack developer &amp; Agentic AI builder</span> creating production-grade systems. Specializing in autonomous multi-agent workflows (LangGraph, MCP), Generative AI architectures, and high-throughput Python &amp; Next.js platforms.
             </p>
 
             <div className="flex flex-wrap gap-4 items-center mb-10">
