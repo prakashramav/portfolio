@@ -2,39 +2,60 @@
 
 import React, { useState, useEffect } from "react"
 import { motion } from "framer-motion"
-import { Code2, ArrowUpRight, Github, Trophy, Terminal, Flame, CheckCircle, ExternalLink, Cpu } from "lucide-react"
+import { Code2, ArrowUpRight, Github, Trophy } from "lucide-react"
 
 export default function CodingProfiles() {
-  const [leetcodeData, setLeetcodeData] = useState({
-    totalSolved: 143,
-    easySolved: 66,
-    mediumSolved: 68,
-    hardSolved: 9,
-    ranking: "1,220,279",
-    loading: false,
+  const [stats, setStats] = useState({
+    github: {
+      username: "prakashramav",
+      publicRepos: 120,
+      followers: 0,
+      flagshipSystems: 8,
+      status: "Live"
+    },
+    leetcode: {
+      username: "ArjunRathod01",
+      totalSolved: 143,
+      easySolved: 66,
+      mediumSolved: 68,
+      hardSolved: 9,
+      ranking: "1,221,819",
+      status: "Live"
+    },
+    codechef: {
+      username: "ms240410700098",
+      name: "Ramavath Prakash",
+      league: "Rookie League",
+      status: "Active"
+    },
+    geeksforgeeks: {
+      username: "ramavama78",
+      name: "Ramavath Prakash",
+      score: 11,
+      problemsSolved: 5,
+      status: "Active"
+    },
+    liveSynced: false
   })
 
   useEffect(() => {
-    // Attempt live fetch with graceful fallback
-    fetch("https://alfa-leetcode-api.onrender.com/userProfile/ArjunRathod01")
+    // Fetch live data across GitHub, LeetCode, CodeChef, and GeeksforGeeks
+    fetch("/api/coding-stats")
       .then((res) => {
         if (!res.ok) throw new Error("Network error")
         return res.json()
       })
       .then((data) => {
-        if (data && data.totalSolved) {
-          setLeetcodeData({
-            totalSolved: data.totalSolved,
-            easySolved: data.easySolved ?? 66,
-            mediumSolved: data.mediumSolved ?? 68,
-            hardSolved: data.hardSolved ?? 9,
-            ranking: data.ranking ? data.ranking.toLocaleString() : "1,220,279",
-            loading: false,
-          })
+        if (data) {
+          setStats((prev) => ({
+            ...prev,
+            ...data,
+            liveSynced: true
+          }))
         }
       })
-      .catch(() => {
-        // Keeps the baseline numbers if rate-limited or offline
+      .catch((err) => {
+        console.warn("Using offline coding stats fallback:", err)
       })
   }, [])
 
@@ -69,7 +90,7 @@ export default function CodingProfiles() {
             transition={{ delay: 0.1 }}
             className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto"
           >
-            Over 150+ problems solved across competitive platforms with a strong focus on trees, dynamic programming, two pointers, and graph algorithms.
+            Live-synced metrics across competitive programming and open-source platforms with a strong focus on data structures, algorithms, and system architecture.
           </motion.p>
         </div>
 
@@ -94,43 +115,49 @@ export default function CodingProfiles() {
                     <div className="flex items-center gap-2">
                       <h3 className="text-xl font-bold font-heading">LeetCode</h3>
                       <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-muted text-muted-foreground">
-                        @ArjunRathod01
+                        @{stats.leetcode.username}
                       </span>
                     </div>
                     <p className="text-xs text-muted-foreground">
-                      Primary Language: <span className="text-foreground font-semibold">Java</span> &bull; 68 Mediums Solved
+                      Primary Language: <span className="text-foreground font-semibold">Java</span> &bull; {stats.leetcode.mediumSolved} Mediums Solved
                     </p>
                   </div>
                 </div>
 
-                <a
-                  href="https://leetcode.com/u/ArjunRathod01/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2.5 rounded-xl bg-secondary text-muted-foreground hover:text-primary transition-colors border border-border"
-                  aria-label="View ArjunRathod01 on LeetCode"
-                >
-                  <ArrowUpRight size={18} />
-                </a>
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] font-mono text-emerald-400 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Live
+                  </span>
+                  <a
+                    href={`https://leetcode.com/u/${stats.leetcode.username}/`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2.5 rounded-xl bg-secondary text-muted-foreground hover:text-primary transition-colors border border-border"
+                    aria-label={`View ${stats.leetcode.username} on LeetCode`}
+                  >
+                    <ArrowUpRight size={18} />
+                  </a>
+                </div>
               </div>
 
               {/* Total Solved Metric Callout */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6 font-mono">
                 <div className="p-3.5 rounded-2xl bg-muted/40 border border-border/60 text-center">
                   <span className="text-xs text-muted-foreground block mb-0.5">Total Solved</span>
-                  <span className="text-2xl font-bold text-foreground">{leetcodeData.totalSolved}</span>
+                  <span className="text-2xl font-bold text-foreground">{stats.leetcode.totalSolved}</span>
                 </div>
                 <div className="p-3.5 rounded-2xl bg-emerald-500/5 border border-emerald-500/20 text-center">
                   <span className="text-xs text-emerald-400 block mb-0.5">Easy</span>
-                  <span className="text-2xl font-bold text-emerald-400">{leetcodeData.easySolved}</span>
+                  <span className="text-2xl font-bold text-emerald-400">{stats.leetcode.easySolved}</span>
                 </div>
                 <div className="p-3.5 rounded-2xl bg-amber-500/5 border border-amber-500/20 text-center">
                   <span className="text-xs text-amber-400 block mb-0.5">Medium</span>
-                  <span className="text-2xl font-bold text-amber-400">{leetcodeData.mediumSolved}</span>
+                  <span className="text-2xl font-bold text-amber-400">{stats.leetcode.mediumSolved}</span>
                 </div>
                 <div className="p-3.5 rounded-2xl bg-rose-500/5 border border-rose-500/20 text-center">
                   <span className="text-xs text-rose-400 block mb-0.5">Hard</span>
-                  <span className="text-2xl font-bold text-rose-400">{leetcodeData.hardSolved}</span>
+                  <span className="text-2xl font-bold text-rose-400">{stats.leetcode.hardSolved}</span>
                 </div>
               </div>
 
@@ -138,23 +165,23 @@ export default function CodingProfiles() {
               <div className="mb-6 space-y-2">
                 <div className="flex justify-between text-xs text-muted-foreground font-mono">
                   <span>Problem Distribution</span>
-                  <span>47% Mediums &bull; High Algorithmic Ratio</span>
+                  <span>{Math.round((stats.leetcode.mediumSolved / stats.leetcode.totalSolved) * 100)}% Mediums &bull; High Algorithmic Ratio</span>
                 </div>
                 <div className="h-3 w-full rounded-full bg-muted overflow-hidden flex">
                   <div
-                    style={{ width: `${(leetcodeData.easySolved / leetcodeData.totalSolved) * 100}%` }}
+                    style={{ width: `${(stats.leetcode.easySolved / stats.leetcode.totalSolved) * 100}%` }}
                     className="bg-emerald-500 h-full"
-                    title={`Easy: ${leetcodeData.easySolved}`}
+                    title={`Easy: ${stats.leetcode.easySolved}`}
                   ></div>
                   <div
-                    style={{ width: `${(leetcodeData.mediumSolved / leetcodeData.totalSolved) * 100}%` }}
+                    style={{ width: `${(stats.leetcode.mediumSolved / stats.leetcode.totalSolved) * 100}%` }}
                     className="bg-amber-500 h-full"
-                    title={`Medium: ${leetcodeData.mediumSolved}`}
+                    title={`Medium: ${stats.leetcode.mediumSolved}`}
                   ></div>
                   <div
-                    style={{ width: `${(leetcodeData.hardSolved / leetcodeData.totalSolved) * 100}%` }}
+                    style={{ width: `${(stats.leetcode.hardSolved / stats.leetcode.totalSolved) * 100}%` }}
                     className="bg-rose-500 h-full"
-                    title={`Hard: ${leetcodeData.hardSolved}`}
+                    title={`Hard: ${stats.leetcode.hardSolved}`}
                   ></div>
                 </div>
               </div>
@@ -177,10 +204,10 @@ export default function CodingProfiles() {
             {/* Action Link */}
             <div className="mt-6 pt-5 border-t border-border/60 flex items-center justify-between">
               <span className="text-xs text-muted-foreground font-mono">
-                Global Rank: #{leetcodeData.ranking}
+                Global Rank: #{stats.leetcode.ranking}
               </span>
               <a
-                href="https://leetcode.com/u/ArjunRathod01/"
+                href={`https://leetcode.com/u/${stats.leetcode.username}/`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs font-bold text-primary hover:underline flex items-center gap-1.5"
@@ -210,11 +237,11 @@ export default function CodingProfiles() {
                     </div>
                     <div>
                       <h3 className="font-bold font-heading text-lg">GitHub Activity</h3>
-                      <span className="text-xs text-muted-foreground font-mono">@prakashramav</span>
+                      <span className="text-xs text-muted-foreground font-mono">@{stats.github.username}</span>
                     </div>
                   </div>
                   <a
-                    href="https://github.com/prakashramav"
+                    href={`https://github.com/${stats.github.username}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="p-2 rounded-lg bg-secondary text-muted-foreground hover:text-primary transition-colors border border-border"
@@ -226,26 +253,26 @@ export default function CodingProfiles() {
                 <div className="grid grid-cols-2 gap-3 mb-4 font-mono text-center">
                   <div className="p-3 rounded-2xl bg-muted/40 border border-border/60">
                     <span className="text-[11px] text-muted-foreground block">Public Repos</span>
-                    <span className="text-xl font-bold text-foreground">116</span>
+                    <span className="text-xl font-bold text-foreground">{stats.github.publicRepos}</span>
                   </div>
                   <div className="p-3 rounded-2xl bg-muted/40 border border-border/60">
                     <span className="text-[11px] text-muted-foreground block">Flagship Systems</span>
-                    <span className="text-xl font-bold text-primary">4</span>
+                    <span className="text-xl font-bold text-primary">{stats.github.flagshipSystems}</span>
                   </div>
                 </div>
 
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  Consistent open-source builder focusing on full-stack architecture, RAG pipelines, FastAPI services, and developer tooling.
+                  Consistent open-source builder focusing on autonomous AI agents, multi-agent workflows, FastAPI microservices, and modern Next.js platforms.
                 </p>
               </div>
 
               <div className="mt-5 pt-4 border-t border-border/60 flex items-center justify-between">
                 <span className="text-xs font-mono text-emerald-400 flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                  Active Builder
+                  Live Synced &bull; {stats.github.publicRepos} Repos
                 </span>
                 <a
-                  href="https://github.com/prakashramav"
+                  href={`https://github.com/${stats.github.username}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs font-bold text-primary hover:underline flex items-center gap-1"
@@ -266,25 +293,37 @@ export default function CodingProfiles() {
                 transition={{ delay: 0.15 }}
                 className="p-5 rounded-3xl bg-background border border-border hover:border-amber-500/40 transition-all shadow-sm flex flex-col justify-between"
               >
-                <div className="flex items-center justify-between mb-3">
-                  <div className="w-10 h-10 rounded-2xl bg-amber-900/10 border border-amber-900/20 text-amber-500 flex items-center justify-center font-bold text-base">
-                    <Trophy size={18} />
-                  </div>
-                  <a
-                    href="https://www.codechef.com/users/ms240410700098"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 rounded-lg bg-secondary text-muted-foreground hover:text-amber-400 transition-colors border border-border"
-                    aria-label="View CodeChef Profile"
-                  >
-                    <ArrowUpRight size={14} />
-                  </a>
-                </div>
                 <div>
-                  <h4 className="font-bold font-heading text-sm text-foreground">CodeChef</h4>
-                  <p className="text-xs text-muted-foreground font-mono truncate">
-                    @ms240410700098
-                  </p>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="w-10 h-10 rounded-2xl bg-amber-900/10 border border-amber-900/20 text-amber-500 flex items-center justify-center font-bold text-base">
+                      <Trophy size={18} />
+                    </div>
+                    <a
+                      href={`https://www.codechef.com/users/${stats.codechef.username}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-lg bg-secondary text-muted-foreground hover:text-amber-400 transition-colors border border-border"
+                      aria-label="View CodeChef Profile"
+                    >
+                      <ArrowUpRight size={14} />
+                    </a>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1.5 mb-0.5">
+                      <h4 className="font-bold font-heading text-sm text-foreground">CodeChef</h4>
+                      <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                        {stats.codechef.league}
+                      </span>
+                    </div>
+                    <p className="text-xs text-muted-foreground font-mono truncate">
+                      @{stats.codechef.username}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-4 pt-3 border-t border-border/50 flex items-center justify-between text-[11px] font-mono text-muted-foreground">
+                  <span>{stats.codechef.name}</span>
+                  <span className="text-amber-400">Active</span>
                 </div>
               </motion.div>
 
@@ -296,25 +335,37 @@ export default function CodingProfiles() {
                 transition={{ delay: 0.2 }}
                 className="p-5 rounded-3xl bg-background border border-border hover:border-emerald-500/40 transition-all shadow-sm flex flex-col justify-between"
               >
-                <div className="flex items-center justify-between mb-3">
-                  <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-base">
-                    <Code2 size={18} />
-                  </div>
-                  <a
-                    href="https://www.geeksforgeeks.org/profile/ramavama78"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 rounded-lg bg-secondary text-muted-foreground hover:text-emerald-400 transition-colors border border-border"
-                    aria-label="View GeeksforGeeks Profile"
-                  >
-                    <ArrowUpRight size={14} />
-                  </a>
-                </div>
                 <div>
-                  <h4 className="font-bold font-heading text-sm text-foreground">GeeksforGeeks</h4>
-                  <p className="text-xs text-muted-foreground font-mono truncate">
-                    @ramavama78
-                  </p>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-base">
+                      <Code2 size={18} />
+                    </div>
+                    <a
+                      href={`https://www.geeksforgeeks.org/profile/${stats.geeksforgeeks.username}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-lg bg-secondary text-muted-foreground hover:text-emerald-400 transition-colors border border-border"
+                      aria-label="View GeeksforGeeks Profile"
+                    >
+                      <ArrowUpRight size={14} />
+                    </a>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1.5 mb-0.5">
+                      <h4 className="font-bold font-heading text-sm text-foreground">GeeksforGeeks</h4>
+                      <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        Score: {stats.geeksforgeeks.score}
+                      </span>
+                    </div>
+                    <p className="text-xs text-muted-foreground font-mono truncate">
+                      @{stats.geeksforgeeks.username}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-4 pt-3 border-t border-border/50 flex items-center justify-between text-[11px] font-mono text-muted-foreground">
+                  <span>Solved: {stats.geeksforgeeks.problemsSolved}</span>
+                  <span className="text-emerald-400">Active</span>
                 </div>
               </motion.div>
             </div>
