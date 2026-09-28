@@ -7,7 +7,7 @@
 
 > Production-grade personal portfolio of **Prakash Ramavath** — 3rd-year Computer Science undergraduate building distributed web platforms, hybrid RAG architectures, and multimodal AI systems.
 
-🌐 **Live Website:** [prakashramavath.vercel.app](https://prakashramavath.vercel.app/)
+🌐 **Live Website:** [arjun-prakash.vercel.app](https://arjun-prakash.vercel.app/)
 
 ---
 

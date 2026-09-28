@@ -6,6 +6,6 @@ export default function robots() {
         allow: "/",
       },
     ],
-    sitemap: "https://prakashramavath.vercel.app/sitemap.xml",
+    sitemap: "https://arjun-prakash.vercel.app/sitemap.xml",
   };
 }
